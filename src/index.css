@@ -1,0 +1,230 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'Outfit', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-monument: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+}
+
+:root {
+  /* Consolidated WCAG AA Palette */
+  --bg-stone: #FAF8F5;
+  --bg-paper: #FFFFFF;
+  --bg-stone-deep: #F2EFE9;
+  --bg-parchment-warm: #EAE5DC;
+  --bg-obsidian: #18221F;
+  --bg-obsidian-elevated: #1E2B27;
+  --bg-yunga-deep: #173F30;
+
+  --ink-obsidian: #18221F;
+  --ink-slate: #525E5A;
+  --ink-mist: #C7C2B8;
+
+  --clay-terracotta: #D9532F;
+  --clay-ink-light: #B84020;
+  --clay-ink-dark: #E87A5A;
+  --ochre-gold: #D49B35;
+  --ochre-bright: #E8B954;
+  --valley-green: #1F513F;
+
+  --border-hairline: rgba(20, 22, 24, 0.12);
+
+  /* Motion Curves (Emil Kowalski principles) */
+  --ease-out-snappy: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+    background-color: var(--bg-stone);
+    color: var(--bg-obsidian);
+  }
+}
+
+/* Editorial Typography & Layout Utilities */
+.font-serif-editorial {
+  font-family: var(--font-display);
+  letter-spacing: -0.028em;
+  font-feature-settings: "ss01" 1, "cv01" 1;
+}
+
+.font-monument {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.num-tabular {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.eyebrow-editorial {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.prose-measure {
+  max-width: 65ch;
+}
+
+.photo-scrim-top {
+  background: linear-gradient(
+    180deg,
+    rgba(20, 22, 24, 0.72) 0%,
+    rgba(20, 22, 24, 0.34) 45%,
+    rgba(20, 22, 24, 0) 100%
+  );
+}
+
+.section-deferred {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 560px;
+}
+
+/* Subtle architectural topographic texture */
+.bg-topo-pattern {
+  background-image: radial-gradient(rgba(20, 22, 24, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* GPU-only Clip-path Media Reveal Utilities */
+.clip-reveal-media {
+  transition-property: clip-path, opacity, transform;
+  transition-duration: 460ms, 240ms, 260ms;
+  transition-timing-function: var(--ease-editorial), var(--ease-out-snappy), var(--ease-editorial);
+}
+
+.clip-reveal-pending {
+  opacity: 0;
+  clip-path: inset(0 0 12% 0);
+  transform: translate3d(0, 10px, 0);
+  will-change: clip-path, opacity, transform;
+}
+
+.clip-reveal-media.clip-reveal-pending {
+  opacity: 0;
+  clip-path: inset(0 0 100% 0);
+  transform: scale(1.03);
+  will-change: clip-path, opacity, transform;
+}
+
+.clip-reveal-visible {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+  transform: translate3d(0, 0, 0) scale(1);
+  will-change: auto;
+}
+
+/* Leaflet Dark Editorial Theme Overrides */
+.leaflet-container {
+  background: #141C19;
+  font-family: var(--font-sans);
+}
+
+.leaflet-container .leaflet-bar,
+.leaflet-container.leaflet-touch .leaflet-bar {
+  background-color: #18221F;
+  border: 1px solid #D49B35;
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.leaflet-container .leaflet-bar a,
+.leaflet-container.leaflet-touch .leaflet-bar a {
+  background-color: #18221F;
+  color: #D49B35;
+  border-bottom: 1px solid rgba(197, 155, 95, 0.32);
+  transition: background-color 180ms var(--ease-out-snappy), color 180ms var(--ease-out-snappy);
+}
+
+.leaflet-container .leaflet-bar a:last-child,
+.leaflet-container.leaflet-touch .leaflet-bar a:last-child {
+  border-bottom: none;
+}
+
+.leaflet-container .leaflet-bar a:hover,
+.leaflet-container .leaflet-bar a:focus-visible {
+  background-color: #1E2B27;
+  color: #E8B954;
+  outline: none;
+}
+
+.leaflet-container .leaflet-bar a:focus-visible {
+  box-shadow: inset 0 0 0 1px #D49B35;
+}
+
+.leaflet-container .leaflet-bar a.leaflet-disabled {
+  background-color: #18221F;
+  color: rgba(197, 155, 95, 0.35);
+  cursor: default;
+}
+
+.leaflet-container .leaflet-control-attribution {
+  background: rgba(20, 22, 24, 0.84);
+  color: #C7C2B8;
+  font-size: 11px;
+  line-height: 1.35;
+  padding: 2px 8px;
+  border-top-left-radius: 4px;
+}
+
+.leaflet-container .leaflet-control-attribution a {
+  color: #E8B954;
+  text-decoration: none;
+}
+
+.leaflet-container .leaflet-control-attribution a:hover,
+.leaflet-container .leaflet-control-attribution a:focus-visible {
+  color: #FAF8F5;
+  text-decoration: underline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .clip-reveal-media {
+    transition-property: opacity;
+    transition-duration: 200ms;
+    transition-timing-function: ease-out;
+    transition-delay: 0ms;
+  }
+
+  .clip-reveal-pending,
+  .clip-reveal-media.clip-reveal-pending,
+  .clip-reveal-visible {
+    clip-path: none;
+    transform: none;
+    will-change: auto;
+  }
+
+  .transition-transform,
+  [class*="transition-[grid-template-rows]"],
+  [class*="hover:scale"],
+  .group:hover [class*="group-hover:scale"] {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Custom subtle scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-stone-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: #B5AFA2;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--clay-terracotta);
+}
